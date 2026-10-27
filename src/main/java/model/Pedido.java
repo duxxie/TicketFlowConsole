@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import interfaces.IIngresso;
+import pattern.decorator.IIngresso;
 
 /** Pedido de compra com os ingressos escolhidos e o pagamento. */
 public class Pedido {
