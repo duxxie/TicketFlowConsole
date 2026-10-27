@@ -2,9 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 
-/**
- * Pagamento com cartão de crédito, permitindo parcelamento em até 12 vezes.
- */
+/** @note Papel no Padrão: Concrete Product (Factory Method). Cartão de crédito, parcelável em até 12x. */
 public class PagamentoCartao extends Pagamento {
     private static final int MAXIMO_PARCELAS = 12;
 
@@ -16,7 +14,7 @@ public class PagamentoCartao extends Pagamento {
 
     @Override
     public void processar() {
-        // Simulação: a operadora do cartão sempre autoriza a compra.
+        // Simulação: a operadora sempre autoriza.
         aprovar();
     }
 

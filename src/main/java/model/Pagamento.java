@@ -2,10 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 
-/**
- * Base para os meios de pagamento aceitos. Cada subclasse define como o pagamento
- * é processado e quando ele é considerado aprovado.
- */
+/** @note Papel no Padrão: Product (Factory Method). Cada subclasse define quando o pagamento é aprovado. */
 public abstract class Pagamento {
     private final String idTransacao;
     private final double valor;
@@ -18,17 +15,10 @@ public abstract class Pagamento {
         this.dataHora = dataHora;
     }
 
-    /**
-     * Executa o pagamento seguindo as regras do meio escolhido.
-     */
     public abstract void processar();
 
-    /**
-     * Nome do meio de pagamento, usado nas mensagens do sistema.
-     */
     public abstract String getMetodo();
 
-    // Só as subclasses aprovam o pagamento, quando suas regras forem cumpridas.
     protected void aprovar() {
         this.aprovado = true;
     }

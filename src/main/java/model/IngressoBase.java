@@ -7,9 +7,7 @@ import interfaces.IIngresso;
 import interfaces.IngressoState;
 import pattern.state.EstadoPendente;
 
-/**
- * Ingresso simples, sem adicionais, vinculado a um evento, um lote e um comprador.
- */
+/** Ingresso simples, sem adicionais. */
 public class IngressoBase implements IIngresso {
     private final String id;
     private final Evento evento;
@@ -23,7 +21,7 @@ public class IngressoBase implements IIngresso {
         this.evento = Objects.requireNonNull(evento, "O evento do ingresso deve ser definido.");
         this.lote = Objects.requireNonNull(lote, "O lote do ingresso deve ser definido.");
         this.comprador = Objects.requireNonNull(comprador, "O comprador do ingresso deve ser definido.");
-        // O preço é fixado na compra: se o preço do lote mudar depois, o ingresso já vendido não muda.
+        // Preço fixado na compra: mudanças no lote não afetam ingressos já vendidos.
         this.preco = lote.calcularPreco();
     }
 

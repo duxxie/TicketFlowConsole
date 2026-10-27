@@ -3,10 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-/**
- * Pagamento via boleto: fica pendente até o banco confirmar a compensação,
- * que precisa acontecer antes do vencimento.
- */
+/** @note Papel no Padrão: Concrete Product (Factory Method). Boleto, aprovado só se compensado antes do vencimento. */
 public class PagamentoBoleto extends Pagamento {
     private static final int DIAS_PARA_VENCIMENTO = 3;
 
@@ -21,12 +18,10 @@ public class PagamentoBoleto extends Pagamento {
 
     @Override
     public void processar() {
-        // Emitir o boleto não aprova o pagamento; a aprovação vem em confirmarCompensacao().
+        // Só emite o boleto; a aprovação vem em confirmarCompensacao().
     }
 
-    /**
-     * Simula o retorno do banco informando que o boleto foi pago.
-     */
+    /** Simula o banco confirmando o pagamento do boleto. */
     public void confirmarCompensacao() {
         if (isVencido()) {
             throw new IllegalStateException("O boleto venceu em " + vencimento + " e não pode mais ser pago.");
