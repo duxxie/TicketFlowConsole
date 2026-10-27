@@ -1,8 +1,8 @@
-package interfaces;
+package pattern.decorator;
 
 import pattern.state.IngressoState;
 
-/** Contrato comum dos ingressos, com ou sem adicionais. */
+/** @note Papel no Padrão: Component (Decorator). Contrato comum dos ingressos, com ou sem adicionais. */
 public interface IIngresso {
     double getPreco();
 

@@ -3,11 +3,11 @@ package model;
 import java.util.Objects;
 import java.util.UUID;
 
-import interfaces.IIngresso;
+import pattern.decorator.IIngresso;
 import pattern.state.EstadoPendente;
 import pattern.state.IngressoState;
 
-/** @note Papel no Padrão: Context (State). Ingresso simples; delega pagar, check-in e cancelar ao estado atual. */
+/** @note Papel no Padrão: Concrete Component (Decorator) e Context (State). Ingresso simples, sem adicionais. */
 public class IngressoBase implements IIngresso {
     private final String id;
     private final Evento evento;
