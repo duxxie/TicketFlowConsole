@@ -3,7 +3,11 @@ package model;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * Evento com ingressos à venda (show, festa, palestra etc.), dividido em lotes.
+ */
 public class Evento {
     private Long id;
     private String nome;
@@ -30,6 +34,38 @@ public class Evento {
                   boolean openBar, List<Lote> lotes) {
         this(id, nome, local, dataHora, idadeMinima, lotes);
         this.openBar = openBar;
+    }
+
+    public void adicionarLote(Lote lote) {
+        lotes.add(Objects.requireNonNull(lote, "O lote não pode ser nulo."));
+    }
+
+    public Lote buscarLote(int numero) {
+        for (Lote lote : lotes) {
+            if (lote.getNumero() == numero) {
+                return lote;
+            }
+        }
+        throw new IllegalArgumentException("Lote " + numero + " não encontrado no evento " + nome + ".");
+    }
+
+    /**
+     * Verifica se a idade informada atende à classificação etária do evento.
+     */
+    public boolean permiteIdade(int idade) {
+        return idade >= idadeMinima;
+    }
+
+    public boolean jaAconteceu() {
+        return dataHora != null && dataHora.isBefore(LocalDateTime.now());
+    }
+
+    public int getIngressosDisponiveis() {
+        int total = 0;
+        for (Lote lote : lotes) {
+            total += lote.getQuantidadeDisponivel();
+        }
+        return total;
     }
 
     public Long getId() {
