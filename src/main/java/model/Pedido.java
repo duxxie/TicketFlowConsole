@@ -8,9 +8,7 @@ import java.util.Objects;
 
 import interfaces.IIngresso;
 
-/**
- * Pedido de compra: agrupa os ingressos escolhidos pelo comprador e o pagamento.
- */
+/** Pedido de compra com os ingressos escolhidos e o pagamento. */
 public class Pedido {
     private final Long id;
     private final Usuario comprador;
@@ -31,9 +29,6 @@ public class Pedido {
         itens.add(Objects.requireNonNull(ingresso, "O ingresso não pode ser nulo."));
     }
 
-    /**
-     * O total é sempre calculado a partir dos itens, assim nunca fica desatualizado.
-     */
     public double getValorTotal() {
         double total = 0;
         for (IIngresso item : itens) {

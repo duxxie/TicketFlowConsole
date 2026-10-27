@@ -2,9 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 
-/**
- * Pagamento via Pix: a confirmação é imediata.
- */
+/** @note Papel no Padrão: Concrete Product (Factory Method). Pagamento via Pix, aprovado na hora. */
 public class PagamentoPix extends Pagamento {
     private final String codigoCopiaECola;
 

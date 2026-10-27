@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Evento com ingressos à venda (show, festa, palestra etc.), dividido em lotes.
- */
+/** @note Papel no Padrão: Product (Builder). Evento com ingressos à venda, dividido em lotes. */
 public class Evento {
     private Long id;
     private String nome;
@@ -49,9 +47,6 @@ public class Evento {
         throw new IllegalArgumentException("Lote " + numero + " não encontrado no evento " + nome + ".");
     }
 
-    /**
-     * Verifica se a idade informada atende à classificação etária do evento.
-     */
     public boolean permiteIdade(int idade) {
         return idade >= idadeMinima;
     }

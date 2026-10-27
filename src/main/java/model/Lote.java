@@ -2,10 +2,7 @@ package model;
 
 import pattern.strategy.CalculoPrecoStrategy;
 
-/**
- * Lote de ingressos de um evento (ex.: "1º Lote", "Pista Promocional").
- * Controla o estoque e delega o cálculo do preço para uma estratégia.
- */
+/** Lote de ingressos: controla o estoque e delega o cálculo do preço à estratégia. */
 public class Lote {
     private int numero;
     private String nome;
@@ -40,9 +37,6 @@ public class Lote {
         return estrategiaPreco.calcularPreco(precoBase);
     }
 
-    /**
-     * Retira um ingresso do estoque no momento da compra.
-     */
     public void reservarIngresso() {
         if (isEsgotado()) {
             throw new IllegalStateException("O lote " + nome + " está esgotado.");
@@ -50,9 +44,6 @@ public class Lote {
         quantidadeDisponivel--;
     }
 
-    /**
-     * Devolve um ingresso ao estoque quando uma compra é cancelada.
-     */
     public void devolverIngresso() {
         if (quantidadeDisponivel == quantidadeTotal) {
             throw new IllegalStateException("O lote " + nome + " já está com o estoque completo.");

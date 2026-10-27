@@ -3,10 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.Period;
 
-/**
- * Pessoa cadastrada na plataforma. Pode comprar ingressos e, se for organizadora,
- * também cadastrar eventos.
- */
+/** Usuário da plataforma: compra ingressos e, se for organizador, cria eventos. */
 public class Usuario {
     private Long id;
     private String nome;
@@ -28,10 +25,6 @@ public class Usuario {
         this.organizador = organizador;
     }
 
-    /**
-     * Calcula a idade atual a partir da data de nascimento.
-     * Usada para validar a classificação etária dos eventos.
-     */
     public int getIdade() {
         if (dataNascimento == null) {
             throw new IllegalStateException("A data de nascimento do usuário não foi informada.");

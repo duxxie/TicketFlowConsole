@@ -1,9 +1,6 @@
 import java.util.Scanner;
 
-/**
- * Ponto de entrada do TicketFlow Console.
- * Oferece um menu interativo via terminal para operar o sistema de venda de ingressos.
- */
+/** Ponto de entrada: menu interativo do TicketFlow Console. */
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
