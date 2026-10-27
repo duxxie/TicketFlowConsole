@@ -1,3 +1,14 @@
-*.vscode
-*lib
-*bin
+# Build
+target/
+build/
+bin/
+out/
+*.class
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Dependências locais
+lib/
