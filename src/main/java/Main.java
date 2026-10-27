@@ -1,3 +1,4 @@
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,12 +36,14 @@ import service.CompraService.Adicional;
 import service.EventoService;
 import service.UsuarioService;
 
-/** Ponto de entrada: menu interativo do TicketFlow Console. */
+/** @note Papel no Padrão: Client (Strategy, Factory Method e Adapter). Menu interativo do TicketFlow Console. */
 public class Main {
     private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter FORMATO_DATA_HORA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    private static final Scanner scanner = new Scanner(System.in);
+    // Lê o teclado na codificação do terminal (no Windows é cp850), senão acentos digitados chegam errados.
+    private static final Scanner scanner = new Scanner(System.in,
+            System.getProperty("stdin.encoding", Charset.defaultCharset().name()));
     private static final UsuarioService usuarioService = new UsuarioService();
     private static final EventoService eventoService = new EventoService();
     private static final CompraService compraService = new CompraService();
@@ -463,8 +466,14 @@ public class Main {
     }
 
     private static String lerTexto(String mensagem) {
-        System.out.print(mensagem);
-        return lerLinha();
+        while (true) {
+            System.out.print(mensagem);
+            String texto = lerLinha();
+            if (!texto.isEmpty()) {
+                return texto;
+            }
+            System.out.println("Este campo não pode ficar vazio.");
+        }
     }
 
     private static int lerInteiro(String mensagem) {
@@ -491,10 +500,10 @@ public class Main {
         while (true) {
             try {
                 double valor = Double.parseDouble(lerTexto(mensagem).replace(",", "."));
-                if (valor >= 0) {
+                if (Double.isFinite(valor) && valor >= 0) {
                     return valor;
                 }
-                System.out.println("O valor não pode ser negativo.");
+                System.out.println("Digite um valor positivo (ex.: 150,00).");
             } catch (NumberFormatException e) {
                 System.out.println("Digite um valor numérico (ex.: 150,00).");
             }

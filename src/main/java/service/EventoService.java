@@ -8,7 +8,7 @@ import model.Evento;
 import model.Usuario;
 import pattern.builder.EventoBuilder;
 
-/** Cadastro e consulta de eventos, guardados em memória. */
+/** @note Papel no Padrão: Client (Builder). Cadastro e consulta de eventos, guardados em memória. */
 public class EventoService {
     private final List<Evento> eventos = new ArrayList<>();
     private long proximoId = 1;
