@@ -121,7 +121,7 @@ public class CompraService {
     public List<Pedido> listarPedidos(Usuario comprador) {
         List<Pedido> resultado = new ArrayList<>();
         for (Pedido pedido : pedidos) {
-            if (pedido.getComprador() == comprador) {
+            if (pedido.getComprador() == comprador && !pedido.getItens().isEmpty()) {
                 resultado.add(pedido);
             }
         }
