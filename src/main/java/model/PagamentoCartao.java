@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import pattern.adapter.GatewayPagamento;
 
-/** @note Papel no Padrão: Concrete Product (Factory Method). Cartão de crédito, autorizado por um gateway externo. */
+/** @note Papel no Padrão: Concrete Product (Factory Method) e Client (Adapter). Cartão autorizado por um gateway externo. */
 public class PagamentoCartao extends Pagamento {
     private static final int MAXIMO_PARCELAS = 12;
 

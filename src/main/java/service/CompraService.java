@@ -18,7 +18,7 @@ import pattern.decorator.KitOpenBarDecorator;
 import pattern.decorator.SeguroIngressoDecorator;
 import pattern.factory.PagamentoFactory;
 
-/** Fluxo de compra: monta o pedido, aplica os adicionais, processa o pagamento e trata cancelamentos. */
+/** @note Papel no Padrão: Client (Factory Method e Decorator). Fluxo de compra, pagamento e cancelamento. */
 public class CompraService {
 
     // O seguro fica por último porque é calculado sobre o valor com os outros adicionais.
