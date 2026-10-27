@@ -55,14 +55,6 @@ public class Evento {
         return dataHora != null && dataHora.isBefore(LocalDateTime.now());
     }
 
-    public int getIngressosDisponiveis() {
-        int total = 0;
-        for (Lote lote : lotes) {
-            total += lote.getQuantidadeDisponivel();
-        }
-        return total;
-    }
-
     public Long getId() {
         return id;
     }
