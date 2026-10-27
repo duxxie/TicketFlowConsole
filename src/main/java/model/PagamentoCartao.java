@@ -33,10 +33,6 @@ public class PagamentoCartao extends Pagamento {
         return getValor() / parcelas;
     }
 
-    public GatewayPagamento getGateway() {
-        return gateway;
-    }
-
     public int getParcelas() {
         return parcelas;
     }
