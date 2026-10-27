@@ -1,21 +1,42 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.Period;
+
+/**
+ * Pessoa cadastrada na plataforma. Pode comprar ingressos e, se for organizadora,
+ * também cadastrar eventos.
+ */
 public class Usuario {
     private Long id;
     private String nome;
     private String cpf;
     private String email;
-    private boolean eOrganizador;
+    private LocalDate dataNascimento;
+    private boolean organizador;
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String cpf, String email, boolean eOrganizador) {
+    public Usuario(Long id, String nome, String cpf, String email, LocalDate dataNascimento,
+                   boolean organizador) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
-        this.eOrganizador = eOrganizador;
+        this.dataNascimento = dataNascimento;
+        this.organizador = organizador;
+    }
+
+    /**
+     * Calcula a idade atual a partir da data de nascimento.
+     * Usada para validar a classificação etária dos eventos.
+     */
+    public int getIdade() {
+        if (dataNascimento == null) {
+            throw new IllegalStateException("A data de nascimento do usuário não foi informada.");
+        }
+        return Period.between(dataNascimento, LocalDate.now()).getYears();
     }
 
     public Long getId() {
@@ -50,11 +71,19 @@ public class Usuario {
         this.email = email;
     }
 
-    public boolean isEOrganizador() {
-        return eOrganizador;
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setEOrganizador(boolean eOrganizador) {
-        this.eOrganizador = eOrganizador;
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
+
+    public boolean isOrganizador() {
+        return organizador;
+    }
+
+    public void setOrganizador(boolean organizador) {
+        this.organizador = organizador;
     }
 }

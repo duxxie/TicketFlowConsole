@@ -7,58 +7,40 @@ import interfaces.IIngresso;
 import interfaces.IngressoState;
 import pattern.state.EstadoPendente;
 
+/**
+ * Ingresso simples, sem adicionais, vinculado a um evento, um lote e um comprador.
+ */
 public class IngressoBase implements IIngresso {
-    private String id;
-    private Evento evento;
-    private Lote lote;
-    private Usuario comprador;
+    private final String id;
+    private final Evento evento;
+    private final Lote lote;
+    private final Usuario comprador;
+    private final double preco;
     private IngressoState estado = new EstadoPendente();
 
-    public IngressoBase() {
-        this.id = UUID.randomUUID().toString();
-    }
-
     public IngressoBase(Evento evento, Lote lote, Usuario comprador) {
-        this(UUID.randomUUID().toString(), evento, lote, comprador);
-    }
-
-    public IngressoBase(String id, Evento evento, Lote lote, Usuario comprador) {
-        this.id = id;
-        this.evento = evento;
-        this.lote = lote;
-        this.comprador = comprador;
+        this.id = UUID.randomUUID().toString();
+        this.evento = Objects.requireNonNull(evento, "O evento do ingresso deve ser definido.");
+        this.lote = Objects.requireNonNull(lote, "O lote do ingresso deve ser definido.");
+        this.comprador = Objects.requireNonNull(comprador, "O comprador do ingresso deve ser definido.");
+        // O preço é fixado na compra: se o preço do lote mudar depois, o ingresso já vendido não muda.
+        this.preco = lote.calcularPreco();
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public Evento getEvento() {
         return evento;
-    }
-
-    public void setEvento(Evento evento) {
-        this.evento = evento;
     }
 
     public Lote getLote() {
         return lote;
     }
 
-    public void setLote(Lote lote) {
-        this.lote = lote;
-    }
-
     public Usuario getComprador() {
         return comprador;
-    }
-
-    public void setComprador(Usuario comprador) {
-        this.comprador = comprador;
     }
 
     @Override
@@ -72,16 +54,11 @@ public class IngressoBase implements IIngresso {
 
     @Override
     public double getPreco() {
-        return Objects.requireNonNull(lote, "O lote do ingresso deve ser definido.")
-                .calcularPreco();
+        return preco;
     }
 
     @Override
     public String getDescricao() {
-        String nomeEvento = Objects.requireNonNull(evento, "O evento do ingresso deve ser definido.")
-                .getNome();
-        String nomeLote = Objects.requireNonNull(lote, "O lote do ingresso deve ser definido.")
-                .getNome();
-        return "Ingresso para " + nomeEvento + " - " + nomeLote;
+        return "Ingresso para " + evento.getNome() + " - " + lote.getNome();
     }
 }

@@ -25,15 +25,14 @@ public class PagamentoFactory {
 
         String idTransacao = UUID.randomUUID().toString();
         LocalDateTime dataHora = LocalDateTime.now();
-        boolean aprovado = false;
 
         switch (tipo) {
             case PIX:
-                return new PagamentoPix(idTransacao, valor, dataHora, aprovado);
+                return new PagamentoPix(idTransacao, valor, dataHora);
             case CARTAO:
-                return new PagamentoCartao(idTransacao, valor, dataHora, aprovado);
+                return new PagamentoCartao(idTransacao, valor, dataHora);
             case BOLETO:
-                return new PagamentoBoleto(idTransacao, valor, dataHora, aprovado);
+                return new PagamentoBoleto(idTransacao, valor, dataHora);
             default:
                 throw new IllegalArgumentException("Tipo de pagamento não suportado: " + tipo);
         }
