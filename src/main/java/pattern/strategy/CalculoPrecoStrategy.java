@@ -1,6 +1,10 @@
 package pattern.strategy;
 
-@FunctionalInterface
+import model.Lote;
+
+/** @note Papel no Padrão: Strategy. Regra de cálculo do preço de um lote. */
 public interface CalculoPrecoStrategy {
-    double calcularPreco(double precoBase);
+    double calcularPreco(Lote lote);
+
+    String getDescricao();
 }

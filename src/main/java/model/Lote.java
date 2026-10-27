@@ -2,7 +2,7 @@ package model;
 
 import pattern.strategy.CalculoPrecoStrategy;
 
-/** Lote de ingressos: controla o estoque e delega o cálculo do preço à estratégia. */
+/** @note Papel no Padrão: Context (Strategy). Controla o estoque e delega o cálculo do preço à estratégia. */
 public class Lote {
     private int numero;
     private String nome;
@@ -34,7 +34,10 @@ public class Lote {
         if (estrategiaPreco == null) {
             throw new IllegalStateException("Uma estratégia de preço deve ser definida para o lote.");
         }
-        return estrategiaPreco.calcularPreco(precoBase);
+        double preco = estrategiaPreco.calcularPreco(this);
+        System.out.println("[STRATEGY] " + nome + ": " + estrategiaPreco.getDescricao()
+                + " -> " + String.format("R$ %.2f", preco));
+        return preco;
     }
 
     public void reservarIngresso() {
