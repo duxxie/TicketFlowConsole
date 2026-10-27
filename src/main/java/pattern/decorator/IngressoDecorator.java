@@ -15,6 +15,11 @@ public abstract class IngressoDecorator implements IIngresso {
     }
 
     @Override
+    public String getId() {
+        return ingresso.getId();
+    }
+
+    @Override
     public double getPreco() {
         return ingresso.getPreco();
     }
