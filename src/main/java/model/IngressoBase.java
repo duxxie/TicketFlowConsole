@@ -17,7 +17,8 @@ public class IngressoBase implements IIngresso {
     private IngressoState estado = new EstadoPendente();
 
     public IngressoBase(Evento evento, Lote lote, Usuario comprador) {
-        this.id = UUID.randomUUID().toString();
+        // Código curto, fácil de digitar na portaria (ex.: 3F9A1C2B).
+        this.id = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         this.evento = Objects.requireNonNull(evento, "O evento do ingresso deve ser definido.");
         this.lote = Objects.requireNonNull(lote, "O lote do ingresso deve ser definido.");
         this.comprador = Objects.requireNonNull(comprador, "O comprador do ingresso deve ser definido.");
@@ -46,7 +47,7 @@ public class IngressoBase implements IIngresso {
 
     public void setEstado(IngressoState novoEstado) {
         Objects.requireNonNull(novoEstado, "O estado do ingresso não pode ser nulo.");
-        System.out.println("[STATE] Ingresso " + id.substring(0, 8) + ": "
+        System.out.println("[STATE] Ingresso " + id + ": "
                 + estado.getNomeEstado() + " -> " + novoEstado.getNomeEstado());
         this.estado = novoEstado;
     }
@@ -56,6 +57,7 @@ public class IngressoBase implements IIngresso {
         return estado;
     }
 
+    @Override
     public String getId() {
         return id;
     }

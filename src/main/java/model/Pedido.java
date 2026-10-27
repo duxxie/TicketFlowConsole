@@ -15,6 +15,7 @@ public class Pedido {
     private final List<IIngresso> itens = new ArrayList<>();
     private final LocalDateTime dataCriacao;
     private Pagamento pagamento;
+    private boolean cancelado;
 
     public Pedido(Long id, Usuario comprador) {
         this.id = id;
@@ -23,8 +24,8 @@ public class Pedido {
     }
 
     public void adicionarItem(IIngresso ingresso) {
-        if (isPago()) {
-            throw new IllegalStateException("Não é possível alterar um pedido que já foi pago.");
+        if (!isAberto()) {
+            throw new IllegalStateException("Não é possível alterar um pedido pago ou cancelado.");
         }
         itens.add(Objects.requireNonNull(ingresso, "O ingresso não pode ser nulo."));
     }
@@ -37,8 +38,21 @@ public class Pedido {
         return total;
     }
 
+    public void cancelar() {
+        this.cancelado = true;
+    }
+
     public boolean isPago() {
         return pagamento != null && pagamento.isAprovado();
+    }
+
+    public boolean isCancelado() {
+        return cancelado;
+    }
+
+    // Aberto = ainda pode receber itens e ser pago.
+    public boolean isAberto() {
+        return !isPago() && !cancelado;
     }
 
     public Long getId() {
