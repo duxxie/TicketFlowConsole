@@ -12,7 +12,7 @@ O funcionamento é parecido com o de uma bilheteria online. Um organizador cadas
 | Factory Method | Criacional | Cada meio de pagamento nasce de um jeito: o cartão precisa das parcelas e de um gateway, o boleto calcula o vencimento, o Pix gera o código copia e cola. A `PagamentoFactory` concentra o que é comum a todos (validar o valor, gerar o identificador da transação) e deixa para cada subclasse a decisão de qual pagamento criar. Um novo meio de pagamento entra no sistema com uma classe nova, sem mexer nas existentes. |
 | Decorator | Estrutural | O comprador pode somar ao ingresso quantos adicionais quiser: área VIP, estacionamento, kit open bar e seguro. Cada adicional envolve o ingresso e acrescenta seu valor e sua descrição, então qualquer combinação funciona sem precisar de uma classe para cada caso. O seguro mostra bem a ideia, porque cobra 10% sobre o valor que o ingresso já tem com os outros adicionais. |
 | Adapter | Estrutural | O pagamento com cartão passa por gateways externos (simulados no pacote `externo`), e cada um tem uma interface diferente: o PagFácil trabalha com valores em centavos e responde com um código de status, enquanto o CashNow recebe tudo como texto e responde "APPROVED" ou "DECLINED". Os adapters traduzem essas APIs para a interface `GatewayPagamento`, que é a única que o sistema conhece. Trocar de gateway não muda nada no pagamento. |
-| Strategy | Comportamental | Cada lote tem a sua regra de preço: normal, promocional com desconto percentual ou dinâmica, em que o preço sobe 10% a cada 25% do lote vendido. O lote só pergunta o preço para a estratégia que recebeu, e o organizador pode trocar essa regra a qualquer momento pelo menu. |
+| Strategy | Comportamental | Cada lote tem a sua regra de preço: normal ou promocional com desconto percentual. O lote só pergunta o preço para a estratégia que recebeu, e o organizador pode trocar essa regra a qualquer momento pelo menu. |
 | State | Comportamental | Um ingresso passa por pendente, pago, utilizado ou cancelado, e o que pode ser feito com ele depende da fase em que está. Cada estado é uma classe que sabe quais ações aceita e para onde o ingresso vai depois. Isso evita uma sequência de `if` espalhada pelo código e impede, por exemplo, check-in de um ingresso que ainda não foi pago ou cancelamento de um que já foi usado. |
 
 Todas as classes que participam de um padrão indicam seu papel no Javadoc, com a anotação `@note Papel no Padrão`.
@@ -34,24 +34,6 @@ src/main/java
 │   ├── state/
 │   └── strategy/
 └── service/            usuários, eventos, compra e check-in
-```
-
-## Como executar
-
-É preciso ter o JDK 11 ou mais recente instalado (o projeto foi desenvolvido e testado com o JDK 26). Não há dependências externas.
-
-No Windows, pelo PowerShell, a partir da pasta do projeto:
-
-```
-.\run.ps1
-```
-
-Se o PowerShell bloquear a execução de scripts, use `powershell -ExecutionPolicy Bypass -File run.ps1`.
-
-No Linux, no macOS ou no Git Bash:
-
-```
-sh run.sh
 ```
 
 Os dois scripts compilam o projeto em `target/classes` e iniciam o menu. Se preferir fazer à mão, o equivalente é compilar todos os arquivos de `src/main/java` com `javac -encoding UTF-8 -d target/classes` e depois rodar `java -cp target/classes Main`.

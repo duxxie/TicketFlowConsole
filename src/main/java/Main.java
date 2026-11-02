@@ -27,7 +27,6 @@ import pattern.factory.PagamentoCartaoFactory;
 import pattern.factory.PagamentoFactory;
 import pattern.factory.PagamentoPixFactory;
 import pattern.strategy.CalculoPrecoStrategy;
-import pattern.strategy.PrecoDinamicoStrategy;
 import pattern.strategy.PrecoNormalStrategy;
 import pattern.strategy.PrecoPromocionalStrategy;
 import service.CheckInService;
@@ -208,13 +207,10 @@ public class Main {
     }
 
     private static CalculoPrecoStrategy escolherEstrategia() {
-        System.out.println("Regra de preço: 1 - Normal | 2 - Promocional | 3 - Dinâmico (sobe conforme vende)");
-        int opcao = lerInteiroEntre("Escolha: ", 1, 3);
+        System.out.println("Regra de preço: 1 - Normal | 2 - Promocional");
+        int opcao = lerInteiroEntre("Escolha: ", 1, 2);
         if (opcao == 2) {
             return new PrecoPromocionalStrategy(lerInteiroEntre("Desconto (%): ", 1, 99));
-        }
-        if (opcao == 3) {
-            return new PrecoDinamicoStrategy();
         }
         return new PrecoNormalStrategy();
     }
@@ -444,7 +440,7 @@ public class Main {
                 .comOpenBar()
                 .adicionarLote(new Lote(1, "Pré-venda", 200, 50, new PrecoPromocionalStrategy(20)))
                 .adicionarLote(new Lote(2, "Pista", 200, 100, new PrecoNormalStrategy()))
-                .adicionarLote(new Lote(3, "Camarote", 400, 8, new PrecoDinamicoStrategy())));
+                .adicionarLote(new Lote(3, "Camarote", 400, 8, new PrecoNormalStrategy())));
 
         eventoService.criarEvento(organizadora, new EventoBuilder()
                 .comNome("Tech Summit")
